@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import type { Ref } from "vue";
 import { ref, watch } from "vue";
+import type { RouteLocationNormalizedLoaded } from "vue-router";
 import { useRoute } from "vue-router";
 import type { Todo } from "./useTodo";
 import { useTodo } from "./useTodo";
@@ -8,11 +9,16 @@ import { useTodo } from "./useTodo";
 const route = useRoute();
 const { getTodo, updateTodo, deleteTodo } = useTodo();
 
-let todo: Ref<Todo> = ref({ id: "", text: "" });
+const getId = (route: RouteLocationNormalizedLoaded) =>
+  Array.isArray(route.params.id) ? route.params.id[0] : route.params.id;
+
+const temp = getTodo(getId(route));
+let todo: Ref<Todo> = ref({ id: temp.id, text: temp.text });
+
 watch(
-  () => (Array.isArray(route.params.id) ? route.params.id[0] : route.params.id),
+  () => getId(route),
   (newId) => {
-    const temp = Object.create(getTodo(newId));
+    const temp = getTodo(newId);
     todo.value = { id: temp.id, text: temp.text };
   }
 );

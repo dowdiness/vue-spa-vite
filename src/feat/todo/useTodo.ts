@@ -43,7 +43,7 @@ export function useTodo() {
   };
 
   const deleteTodo = (target: Todo) => {
-    t.value.todos = t.value.todos.filter((todo) => todo !== target);
+    t.value.todos = t.value.todos.filter((todo) => todo.id !== target.id);
   };
 
   watchEffect(() => updateStorage(t.value));
