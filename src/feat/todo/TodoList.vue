@@ -5,8 +5,12 @@ const { state } = useTodo();
 
 <template>
   <div class="container">
-    <ul class="">
-      <li v-for="todo in state.todos" :key="todo.text">
+    <ul>
+      <li
+        class="transition-colors line-clamp-1 hover:text-gray-500"
+        v-for="todo in state.todos"
+        :key="todo.text"
+      >
         <RouterLink :to="`/todos/${todo.id}`">{{ todo.text }}</RouterLink>
       </li>
     </ul>
