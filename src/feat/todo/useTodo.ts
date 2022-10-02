@@ -4,26 +4,26 @@ import { useRouter } from "vue-router";
 import { v4 as uuidv4 } from "uuid";
 
 export type Todo = { id: string; text: string };
-export type TodoState = { todos: Todo[] };
-export type TodoStateRef = Ref<TodoState>;
+export type Todos = { todos: Todo[] };
+export type TodosRef = Ref<Todos>;
 
-export const TodoStateSymbol: InjectionKey<TodoStateRef> = Symbol();
+export const TodosSymbol: InjectionKey<TodosRef> = Symbol();
 
-export function provideTodoState(todoState: TodoStateRef) {
-  provide(TodoStateSymbol, todoState);
+export function provideTodos(Todos: TodosRef) {
+  provide(TodosSymbol, Todos);
 }
 
-const updateStorage = (value: TodoState) => {
+const updateStorage = (value: Todos) => {
   localStorage.setItem("todos", JSON.stringify(value));
 };
 
 export function useTodo() {
-  const t = inject(TodoStateSymbol);
+  const t = inject(TodosSymbol);
   if (!t) {
     throw new Error("useTodo() is called without provider.");
   }
 
-  const state = readonly(t);
+  const todos = readonly(t);
 
   const router = useRouter();
 
@@ -52,7 +52,7 @@ export function useTodo() {
   watchEffect(() => updateStorage(t.value));
 
   return {
-    state,
+    todos,
     getTodo,
     addTodo,
     updateTodo,

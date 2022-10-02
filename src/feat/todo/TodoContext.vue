@@ -1,15 +1,15 @@
 <script setup lang="ts">
 import { ref } from "vue";
-import type { TodoState } from "./useTodo";
-import { provideTodoState } from "./useTodo";
+import type { Todos } from "./useTodo";
+import { provideTodos } from "./useTodo";
 
-const todoState: TodoState = JSON.parse(
+const todos: Todos = JSON.parse(
   localStorage.getItem("todos") ??
     `{
         "todos": []
     }`
 );
-provideTodoState(ref(todoState));
+provideTodos(ref(todos));
 </script>
 
 <template>

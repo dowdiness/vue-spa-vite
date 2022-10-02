@@ -2,8 +2,8 @@
 import { computed } from "vue";
 import { useTodo } from "../feat/todo/useTodo";
 
-const { state } = useTodo();
-const todoLength = computed(() => state.value.todos.length);
+const { todos } = useTodo();
+const todoLength = computed(() => todos.value.todos.length);
 </script>
 
 <template>
