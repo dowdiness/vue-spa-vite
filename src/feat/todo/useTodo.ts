@@ -1,5 +1,6 @@
 import type { Ref, InjectionKey } from "vue";
 import { inject, provide, readonly, watchEffect } from "vue";
+import { useRouter } from "vue-router";
 import { v4 as uuidv4 } from "uuid";
 
 export type Todo = { id: string; text: string };
@@ -24,6 +25,8 @@ export function useTodo() {
 
   const state = readonly(t);
 
+  const router = useRouter();
+
   const getTodo = (id: string) => {
     return t.value.todos.filter((todo) => todo.id === id)[0];
   };
@@ -35,15 +38,15 @@ export function useTodo() {
   const updateTodo = (target: Todo) => {
     t.value.todos = t.value.todos.map((todo) => {
       if (todo.id === target.id) {
-        return target;
-      } else {
-        return todo;
+        todo.text = target.text;
       }
+      return todo;
     });
   };
 
   const deleteTodo = (target: Todo) => {
     t.value.todos = t.value.todos.filter((todo) => todo.id !== target.id);
+    router.push("/");
   };
 
   watchEffect(() => updateStorage(t.value));
