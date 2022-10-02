@@ -12,7 +12,7 @@ const router = createRouter({
     {
       path: "/todos/:id",
       name: "todo",
-      component: () => import("../feat/todo/TodoItem.vue"),
+      component: () => import("../views/TodoEdit.vue"),
     },
   ],
 });

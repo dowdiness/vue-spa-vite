@@ -3,15 +3,12 @@ import { ref } from "vue";
 import type { TodoState } from "./useTodo";
 import { provideTodoState } from "./useTodo";
 
-const todoState: TodoState = {
-  todos: JSON.parse(
-    localStorage.getItem("todos") ??
-      `{
-          "todos": []
-        }`
-  ).todos,
-};
-
+const todoState: TodoState = JSON.parse(
+  localStorage.getItem("todos") ??
+    `{
+        "todos": []
+    }`
+);
 provideTodoState(ref(todoState));
 </script>
 
