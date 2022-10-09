@@ -14,7 +14,7 @@ const getId = (route: RouteLocationNormalizedLoaded) =>
   Array.isArray(route.params.id) ? route.params.id[0] : route.params.id;
 
 const temp = getTodo(getId(route));
-let todo: Ref<Todo> = ref({ ...temp });
+const todo: Ref<Todo> = ref({ ...temp });
 
 watch(
   () => getId(route),
