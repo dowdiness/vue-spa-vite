@@ -14,13 +14,13 @@ const getId = (route: RouteLocationNormalizedLoaded) =>
   Array.isArray(route.params.id) ? route.params.id[0] : route.params.id;
 
 const temp = getTodo(getId(route));
-let todo: Ref<Todo> = ref({ id: temp.id, text: temp.text });
+let todo: Ref<Todo> = ref({ ...temp });
 
 watch(
   () => getId(route),
   (newId) => {
     const temp = getTodo(newId);
-    todo.value = { id: temp.id, text: temp.text };
+    todo.value = { ...temp };
   }
 );
 </script>
